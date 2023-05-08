@@ -1,20 +1,27 @@
 import { TaskModel } from "@/types/task";
 import "./style.css";
+import { Draggable } from "react-beautiful-dnd";
 
-const TaskBox: React.FC<{ task: TaskModel }> = ({ task }) => {
+type cProps = {
+  task: TaskModel;
+  index: number;
+};
+
+const TaskBox: React.FC<cProps> = ({ task, index }) => {
   return (
-    <div
-      className="taskBox"
-      draggable
-      onDragStart={(e: React.DragEvent<HTMLDivElement>) =>
-        e.dataTransfer.setData("node-data", JSON.stringify(task))
-      }
-      onDragEnd={(e: React.DragEvent<HTMLDivElement>) =>
-        e.dataTransfer.clearData()
-      }
-    >
-      id: {task.id}
-    </div>
+    <Draggable key={task.id} draggableId={String(task.id)} index={index}>
+      {(provided, snapshot) => (
+        <div
+          className="taskBox"
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <div>id: {task.id}</div>
+          <div>{task.name}</div>
+        </div>
+      )}
+    </Draggable>
   );
 };
 

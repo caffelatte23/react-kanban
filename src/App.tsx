@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import TaskContainer from "./components/TaskContainer";
 import { TaskModel, TaskStatus } from "./types/task";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 
 const tasks: TaskModel[] = [
   {
@@ -24,13 +25,20 @@ const tasks: TaskModel[] = [
 function App() {
   const [taskList, setTaskList] = useState<TaskModel[]>([]);
   const status: TaskStatus[] = ["TODO", "IN_PROGRESS", "DONE"];
+  //
 
-  const onUpdateTask = (id: number, status: TaskStatus) => {
-    const newList = [...taskList];
-    const targetIdx = newList.findIndex((d) => d.id === id);
+  const onUpdateTask = (result: DropResult) => {
+    const newTask = [...taskList];
+    const changedTaskIdx = taskList.findIndex(
+      (d) => d.id === parseInt(result.draggableId)
+    );
 
-    if (targetIdx !== -1) newList[targetIdx].status = status;
-    setTaskList(newList);
+    if (changedTaskIdx !== -1) {
+      newTask[changedTaskIdx].status = result.destination
+        ?.droppableId as TaskStatus;
+
+      setTaskList(newTask);
+    }
   };
 
   useEffect(() => {
@@ -42,14 +50,15 @@ function App() {
       <div className="header">header</div>
       <div className="sideBar">sideBar</div>
       <div className="main">
-        {status.map((type) => (
-          <TaskContainer
-            key={type}
-            status={type}
-            tasks={taskList.filter((d) => d.status === type)}
-            onUpdate={onUpdateTask}
-          />
-        ))}
+        <DragDropContext onDragEnd={onUpdateTask}>
+          {status.map((type) => (
+            <TaskContainer
+              key={type}
+              status={type}
+              tasks={taskList.filter((d) => d.status === type)}
+            />
+          ))}
+        </DragDropContext>
       </div>
     </div>
   );

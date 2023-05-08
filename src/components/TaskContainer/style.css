@@ -1,3 +1,7 @@
+.containerLabel {
+  font-weight: bold;
+}
+
 .taskContainer {
   background-color: lightgray;
   width: 300px;
@@ -9,7 +13,7 @@
   align-items: center;
   gap: 1rem;
   border-radius: 8px;
-  max-height: 600px;
+  min-height: 600px;
   position: relative;
 }
 
