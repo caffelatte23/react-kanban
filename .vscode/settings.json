@@ -1,0 +1,11 @@
+{
+  "editor.formatOnType": true,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "prettier.tabWidth": 2,
+  "prettier.endOfLine": "lf",
+  "prettier.semi": true,
+  "prettier.printWidth": 80
+}
