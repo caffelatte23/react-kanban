@@ -1,14 +1,46 @@
 .taskBox {
   width: 250px;
-  height: 150px;
+  height: 100px;
   padding: 0.5rem 1rem;
 
-  border-radius: 0.5rem;
-  border: 1px solid black;
+  border-radius: 4px;
   background-color: white;
-  box-shadow: 2px 6px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  flex-direction: column;
 }
 
-.taskBox.active {
-  opacity: 0.5;
+/* beatiful dndの上書き */
+[data-rbd-drag-handle-context-id="0"] {
+  cursor: pointer !important;
+}
+
+.taskBox-id {
+  margin-top: auto;
+  font-size: small;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.action-btn {
+  visibility: hidden;
+  position: relative;
+}
+
+.taskBox:hover .action-btn {
+  visibility: visible;
+  cursor: pointer;
+}
+
+.taskBox-menu {
+  position: absolute;
+  z-index: 2000;
+  bottom: -28px;
+  right: 0;
+  width: 100px;
+  background-color: grey;
+
+  font-size: small;
+  padding: 2px 4px;
 }

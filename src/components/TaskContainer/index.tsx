@@ -1,29 +1,36 @@
 import "./style.css";
 import TaskBox from "../TaskBox";
-import { useState } from "react";
 import { TaskModel, TaskStatus } from "../../types/task";
 import { Droppable } from "react-beautiful-dnd";
+import { memo } from "react";
 
 type cProps = {
   status?: TaskStatus;
   tasks: TaskModel[];
 };
 
-const TaskContainer: React.FC<cProps> = ({ status = "TODO", tasks }) => {
+const TaskContainer: React.FC<cProps> = memo(({ status = "TODO", tasks }) => {
   return (
-    <Droppable droppableId={status}>
-      {(provided, snapshot) => (
-        <div ref={provided.innerRef} {...provided.droppableProps}>
-          <span className="containerLabel">{status}</span>
-          <div className={`taskContainer ${status}`}>
+    <div>
+      <label className="containerLabel">
+        {status} ({tasks.length})
+      </label>
+      <Droppable droppableId={status}>
+        {(provided, snapshot) => (
+          <div
+            className={`taskContainer ${status}`}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
             {tasks.map((d, index) => (
               <TaskBox key={d.id} task={d} index={index} />
             ))}
+            <div style={{ display: "none" }}>{provided.placeholder}</div>
           </div>
-        </div>
-      )}
-    </Droppable>
+        )}
+      </Droppable>
+    </div>
   );
-};
+});
 
 export default TaskContainer;

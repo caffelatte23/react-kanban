@@ -12,14 +12,3 @@
   padding: 8px;
   background-color: red;
 }
-
-.sideBar {
-  grid-area: sideBar;
-}
-
-.main {
-  grid-area: main;
-  display: flex;
-  gap: 2rem;
-  margin-top: 2rem;
-}

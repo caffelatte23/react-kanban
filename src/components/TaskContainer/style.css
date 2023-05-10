@@ -4,9 +4,9 @@
 
 .taskContainer {
   background-color: lightgray;
-  width: 300px;
   padding: 1rem 0.5rem;
-  box-sizing: border-box;
+  width: 250px;
+  box-sizing: content-box;
 
   display: flex;
   flex-direction: column;
@@ -21,7 +21,9 @@
   content: " ";
   position: absolute;
   top: 0;
-  width: 300px;
+  padding: 0 0.5rem;
+  width: 250px;
+  box-sizing: content-box;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   border-top: 8px solid transparent;
