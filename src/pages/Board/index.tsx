@@ -1,4 +1,4 @@
-import TaskContainer from "@/components/TaskContainer";
+import TaskContainer from "@/components/Board/TaskContainer";
 import { TaskStatus } from "@/types/task";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 

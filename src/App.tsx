@@ -1,6 +1,6 @@
 import "./App.css";
 import { SideBar, SideBarItem } from "./components/sideBar";
-import Main from "./pages/kanban/index";
+import RouterView from "./router";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <SideBarItem label="item" />
         <SideBarItem label="item" />
       </SideBar>
-      <Main />
+      <RouterView />
     </div>
   );
 }

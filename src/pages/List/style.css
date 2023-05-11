@@ -1,0 +1,17 @@
+.main {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem;
+}
+
+.board-head {
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.board-body {
+  display: flex;
+  gap: 2rem;
+}

@@ -4,4 +4,5 @@ export type TaskModel = {
   id: number;
   name: string;
   status: TaskStatus;
+  listOrder: number;
 };
