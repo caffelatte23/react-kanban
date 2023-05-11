@@ -1,3 +1,13 @@
+.containerBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.containerHeader {
+  display: flex;
+  justify-content: space-between;
+}
 .containerLabel {
   font-weight: bold;
 }
@@ -13,11 +23,8 @@
   align-items: center;
   gap: 1rem;
   border-radius: 8px;
-  max-height: 600px;
-  min-height: 100px;
   position: relative;
-
-  /* overflow-y: auto; */
+  flex: 1 0 auto;
 }
 
 .taskContainer::before {

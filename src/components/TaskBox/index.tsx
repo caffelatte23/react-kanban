@@ -1,14 +1,13 @@
 import { TaskModel } from "@/types/task";
 import "./style.css";
 import { Draggable } from "react-beautiful-dnd";
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef } from "react";
 import {
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
   IconButton,
-  Textarea,
   Input,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
@@ -54,38 +53,44 @@ const TaskBox: React.FC<cProps> = memo(({ task, index }) => {
   );
 });
 
-export const TaskEditBox: React.FC<{
-  onSubmit?: (name: string) => void;
+type TextEditProps = {
   visible: boolean;
-}> = memo(({ onSubmit, visible }) => {
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const name = areaRef.current?.value;
-    if (onSubmit && name) onSubmit(name);
-  };
+  onSubmit?: (name: string) => void;
+  onBlur?: () => void;
+};
 
-  const areaRef = useRef<HTMLInputElement | null>(null);
+export const TaskEditBox: React.FC<TextEditProps> = memo(
+  ({ onSubmit, visible, onBlur }) => {
+    const submit = (e: React.FormEvent) => {
+      e.preventDefault();
+      const name = areaRef.current?.value;
+      if (onSubmit && name) onSubmit(name);
+    };
 
-  useEffect(() => {
-    if (visible && areaRef.current) {
-      areaRef.current.focus();
-    }
-  }, [visible]);
-  return (
-    <>
-      {visible && (
-        <div className="taskBox">
-          <form onSubmit={submit}>
-            <Input
-              ref={areaRef}
-              style={{ resize: "none" }}
-              variant={"unstyled"}
-            />
-          </form>
-        </div>
-      )}
-    </>
-  );
-});
+    const areaRef = useRef<HTMLInputElement | null>(null);
+
+    useEffect(() => {
+      if (visible && areaRef.current) {
+        areaRef.current.focus();
+      }
+    }, [visible]);
+    return (
+      <>
+        {visible && (
+          <div className="taskBox">
+            <form onSubmit={submit}>
+              <Input
+                ref={areaRef}
+                style={{ resize: "none" }}
+                variant={"unstyled"}
+                onBlur={onBlur}
+              />
+            </form>
+          </div>
+        )}
+      </>
+    );
+  }
+);
 
 export default TaskBox;

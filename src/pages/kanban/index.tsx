@@ -9,7 +9,6 @@ const Main: React.FC = () => {
   const updateTask = useStore((state) => state.updateTask);
 
   const onDragEnd = (result: DropResult) => {
-    console.log(result);
     updateTask(
       parseInt(result.draggableId),
       result.destination?.droppableId as TaskStatus

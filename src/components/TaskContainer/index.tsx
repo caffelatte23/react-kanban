@@ -2,7 +2,7 @@ import "./style.css";
 import TaskBox, { TaskEditBox } from "../TaskBox";
 import { TaskStatus } from "@/types/task";
 import { Droppable } from "react-beautiful-dnd";
-import { memo, useState, useRef } from "react";
+import { memo, useState } from "react";
 import { useStore } from "@/stores/task";
 import { IconButton } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
@@ -24,15 +24,11 @@ const TaskContainer: React.FC<cProps> = memo(({ status = "TODO" }) => {
     setIsEdit(false);
   };
 
+  const onBlur = () => setIsEdit(false);
+
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "0.5rem",
-        }}
-      >
+    <div className="containerBox">
+      <div className="containerHeader">
         <label className="containerLabel">
           {status} ({tasks.length})
         </label>
@@ -42,6 +38,7 @@ const TaskContainer: React.FC<cProps> = memo(({ status = "TODO" }) => {
             icon={<AddIcon />}
             aria-label="add task button"
             onClick={() => setIsEdit(true)}
+            disabled={isEdit}
           />
         )}
       </div>
@@ -55,8 +52,14 @@ const TaskContainer: React.FC<cProps> = memo(({ status = "TODO" }) => {
             {tasks.map((d, index) => (
               <TaskBox key={d.id} task={d} index={index} />
             ))}
-            {<TaskEditBox visible={isEdit} onSubmit={onSubmit} />}
-            <div style={{ display: "none" }}>{provided.placeholder}</div>
+            {
+              <TaskEditBox
+                visible={isEdit}
+                onSubmit={onSubmit}
+                onBlur={onBlur}
+              />
+            }
+            {provided.placeholder}
           </div>
         )}
       </Droppable>
