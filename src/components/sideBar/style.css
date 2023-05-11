@@ -13,6 +13,7 @@
 .sideBar-item:hover {
   background-color: rgba(0, 0, 255, 0.3);
   border-right: 2px solid blue;
+  cursor: pointer;
 }
 
 .sideBar-item.bottom {

@@ -1,62 +1,28 @@
-import { useEffect, useState } from "react";
 import TaskContainer from "@/components/TaskContainer";
-import { TaskModel, TaskStatus } from "@/types/task";
+import { TaskStatus } from "@/types/task";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 
 import "./style.css";
-
-const tasks: TaskModel[] = [
-  {
-    id: 1,
-    name: "hello",
-    status: "TODO",
-  },
-  {
-    id: 2,
-    name: "hello",
-    status: "TODO",
-  },
-  {
-    id: 3,
-    name: "hello",
-    status: "TODO",
-  },
-];
+import { useStore, taskStatus } from "@/stores/task";
 
 const Main: React.FC = () => {
-  const [taskList, setTaskList] = useState<TaskModel[]>([]);
-  const status: TaskStatus[] = ["TODO", "IN_PROGRESS", "DONE"];
-  //
+  const updateTask = useStore((state) => state.updateTask);
 
-  const onUpdateTask = (result: DropResult) => {
-    const newTask = [...taskList];
-    const changedTaskIdx = taskList.findIndex(
-      (d) => d.id === parseInt(result.draggableId)
+  const onDragEnd = (result: DropResult) => {
+    console.log(result);
+    updateTask(
+      parseInt(result.draggableId),
+      result.destination?.droppableId as TaskStatus
     );
-
-    if (changedTaskIdx !== -1) {
-      newTask[changedTaskIdx].status = result.destination
-        ?.droppableId as TaskStatus;
-
-      setTaskList(newTask);
-    }
   };
 
-  useEffect(() => {
-    setTaskList(tasks);
-  }, []);
-
   return (
-    <DragDropContext onDragEnd={onUpdateTask}>
+    <DragDropContext onDragEnd={onDragEnd}>
       <div className="main">
         <div className="board-head">Project1</div>
         <div className="board-body">
-          {status.map((type) => (
-            <TaskContainer
-              key={type}
-              status={type}
-              tasks={taskList.filter((d) => d.status === type)}
-            />
+          {taskStatus.map((type) => (
+            <TaskContainer key={type} status={type} />
           ))}
         </div>
       </div>

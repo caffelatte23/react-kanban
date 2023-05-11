@@ -13,8 +13,11 @@
   align-items: center;
   gap: 1rem;
   border-radius: 8px;
-  min-height: 600px;
+  max-height: 600px;
+  min-height: 100px;
   position: relative;
+
+  /* overflow-y: auto; */
 }
 
 .taskContainer::before {
