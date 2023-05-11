@@ -19,3 +19,8 @@
 .sideBar-item.bottom {
   margin-top: auto;
 }
+
+.sideBar-item.active {
+  color: blue;
+  font-weight: bold;
+}

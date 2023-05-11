@@ -7,8 +7,8 @@ function App() {
     <div className="body">
       <div className="header">header</div>
       <SideBar>
-        <SideBarItem label="Project1" onClick={() => console.log("called")} />
-        <SideBarItem label="item" />
+        <SideBarItem label="Project1" to="/" />
+        <SideBarItem label="List" to="/list" />
         <SideBarItem label="item" />
       </SideBar>
       <RouterView />
